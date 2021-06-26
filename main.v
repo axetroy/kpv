@@ -6,9 +6,12 @@ import process
 fn print_help() {
 	print('kpv - Kill the process listening on the specified port
 USAGE:
-  kpv <port>
+  kpv <OPTIONS> <...PORTS>
+OPTIONS:
+	-f,--force         kill process with force
 EXAMPLE:
-  kpv 1080
+  kpv 1080 9527
+  kpv -f 1080
 SOURCE CODE:
   https://github.com/axetroy/kpv
 ')
@@ -31,7 +34,7 @@ fn main() {
 			break
 		}
 
-		process.kill(ps.pid) or {
+		process.kill(ps.pid, true) or {
 			println("kill process '$port' fail: '$err'")
 			break
 		}

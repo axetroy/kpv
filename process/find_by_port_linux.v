@@ -12,7 +12,7 @@ pub fn find_process_by_port(port int) ?&Process {
 		return error("Can not found executable file '$bin_name' in your \$PATH.\n$err")
 	}
 	mut ps := os.new_process(bin_path)
-	ps.set_args(['-anv', '-p', 'TCP'])
+	ps.set_args(['-tunlp'])
 	ps.set_redirect_stdio()
 	ps.wait()
 
@@ -29,10 +29,10 @@ pub fn find_process_by_port(port int) ?&Process {
 			continue
 		}
 
-		list := util.extract_columns(line, [0, 3, 8], 11)
+		list := util.extract_columns(line, [0, 3, 6], 7)
 		proto := list[0]
 		addr := list[1]
-		pid := list[2]
+		pid := list[2].split("/")[0]
 
 		if addr.ends_with('.$port') {
 			mut is_exist := false
