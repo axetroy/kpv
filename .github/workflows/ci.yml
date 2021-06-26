@@ -1,0 +1,134 @@
+name: ci
+
+on: [push, pull_request]
+
+jobs:
+  linux:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout V
+        uses: actions/checkout@v2
+        with:
+          repository: vlang/v
+          ref: 02f4f635cff081de8539fb9542515650ad97f80a
+
+      - name: Build V
+        run: |
+          make
+          sudo ./v symlink
+
+      - name: Checkout source code
+        uses: actions/checkout@v2
+        with:
+          path: kpv
+
+      - name: Format
+        run: |
+          cd ./kpv
+          make format-check
+
+      - name: Build kpv
+        run: |
+          cd ./kpv
+          make linux
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: linux
+          path: ./kpv/bin/kpv_linux
+          if-no-files-found: error
+
+  windows:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout V
+        uses: actions/checkout@v2
+        with:
+          repository: vlang/v
+          ref: 02f4f635cff081de8539fb9542515650ad97f80a
+
+      - name: Build V
+        run: |
+          .\make.bat -msvc
+
+      - name: Checkout source code
+        uses: actions/checkout@v2
+        with:
+          path: kpv
+
+      - name: Build kpv
+        run: |
+          $env:path += ";$(get-location)"
+          cd ./kpv
+          make windows
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: windows
+          path: ./kpv/bin/kpv_win.exe
+          if-no-files-found: error
+
+  macos:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout V
+        uses: actions/checkout@v2
+        with:
+          repository: vlang/v
+          ref: 02f4f635cff081de8539fb9542515650ad97f80a
+
+      - name: Build V
+        run: |
+          make
+          sudo ./v symlink
+
+      - name: Checkout source code
+        uses: actions/checkout@v2
+        with:
+          path: kpv
+
+      - name: Build kpv
+        run: |
+          cd ./kpv
+          make macos
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: macos
+          path: ./kpv/bin/kpv_osx
+          if-no-files-found: error
+
+  release:
+    name: Release to Github
+    if: startsWith(github.ref, 'refs/tags/') && github.repository == 'axetroy/kpv'
+    needs: [linux, windows, macos]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v2
+        with:
+          name: linux
+
+      - uses: actions/download-artifact@v2
+        with:
+          name: windows
+
+      - uses: actions/download-artifact@v2
+        with:
+          name: macos
+
+      - name: tar
+        run: |
+          mv kpv_linux kpv && tar czf kpv_linux.tar.gz kpv && rm kpv
+          mv kpv_osx kpv && tar czf kpv_osx.tar.gz kpv && rm kpv
+          mv kpv_win.exe kpv.exe && tar czf kpv_win.tar.gz kpv.exe && rm kpv.exe
+          ls -lh
+
+      - uses: softprops/action-gh-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+        with:
+          files: |
+            kpv_linux.tar.gz
+            kpv_osx.tar.gz
+            kpv_win.tar.gz
+          draft: false
