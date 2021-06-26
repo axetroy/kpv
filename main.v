@@ -9,16 +9,18 @@ const version = '0.1.0'
 fn print_help() {
 	print('kpv - Kill the process listening on the specified port
 USAGE:
-  kpv <OPTIONS> <...PORTS>
+    kpv <OPTIONS> <...PORTS>
 OPTIONS:
-	-f,--force         kill process with force
+    -h,--help                        print help informatino
+    -V,--version                     print version information
+    -f,--force                       kill forcing
 EXAMPLE:
-  kpv 1080 9527
-  kpv -f 1080
+    kpv 1080 9527                    kill multiple ports
+    kpv -f 1080                      kill the process by forcing
 VERSION:
-	v$version
+    v$version
 SOURCE CODE:
-  https://github.com/axetroy/kpv
+    https://github.com/axetroy/kpv
 ')
 }
 
