@@ -32,7 +32,7 @@ pub fn find_process_by_port(port int) ?&Process {
 		list := util.extract_columns(line, [0, 3, 6], 7)
 		proto := list[0]
 		addr := list[1]
-		pid := list[2].split("/")[0]
+		pid := list[2].split('/')[0]
 
 		if addr.ends_with('.$port') {
 			mut is_exist := false
