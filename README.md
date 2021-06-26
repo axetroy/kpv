@@ -15,9 +15,9 @@ If you are using `unix` style system(`macOS`/`Linux`). enter the command line to
 
 ```shell
 # install the latest version
-curl -fsSL https://raw.githubusercontent.com/axetroy/kpv/main/install.sh | bash
+curl -fsSL https://raw.githubusercontent.com/axetroy/kpv/master/install.sh | bash
 # install the specified version
-curl -fsSL https://raw.githubusercontent.com/axetroy/kpv/main/install.sh | bash -s v0.1.0
+curl -fsSL https://raw.githubusercontent.com/axetroy/kpv/master/install.sh | bash -s v0.1.0
 ```
 
 Or download [the release file](https://github.com/axetroy/kpv/releases) for your platform and put it to `$PATH` folder.
