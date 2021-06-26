@@ -1,7 +1,10 @@
-default:
+default: test
 	@make windows
 	@make macos
 	@make linux
+
+test:
+	@v test ./
 
 format:
 	@v fmt -w *.v **/*.v
