@@ -18,7 +18,6 @@ pub fn find_process_by_port(port int) ?&Process {
 
 	assert ps.code == 0
 
-	lines := output.split_into_lines()
 	table_header_line := 2
 	proto_index := 0
 	addr_index := 3
