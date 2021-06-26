@@ -9,7 +9,7 @@ pub fn find_process_by_port(port int) ?&Process {
 	bin_name := 'netstat'
 
 	bin_path := os.find_abs_path_of_executable(bin_name) or {
-		return error("Can not found executable file '$bin_name' in your \$PATH.\n$err")
+		return err
 	}
 	mut ps := os.new_process(bin_path)
 	ps.set_args(['-ano'])
@@ -22,19 +22,16 @@ pub fn find_process_by_port(port int) ?&Process {
 
 	lines := output.split_into_lines()
 	table_header_line := 4
+	proto_index := 0
+	addr_index := 1
+	pid_index := 4
 
-	for index, line in lines {
-		if index < table_header_line {
-			continue
-		}
+	columns := util.parse_table(output, table_header_line)
 
-		list := util.extract_columns(line, [0, 1, 4], 5)
-
-		assert list.len == 3
-
-		proto := list[0]
-		addr := list[1]
-		pid := list[2]
+	for column in columns {
+		proto := column[proto_index].str()
+		addr := column[addr_index].str()
+		pid := column[pid_index].str()
 
 		if addr.ends_with('.$port') {
 			mut is_exist := false
@@ -59,7 +56,8 @@ pub fn find_process_by_port(port int) ?&Process {
 	}
 
 	if process_list.len == 0 {
-		return error("can not found process with port '$port'")
+		msg := process.err_not_found.str()
+		return error("$msg $port")
 	}
 
 	return process_list[0]

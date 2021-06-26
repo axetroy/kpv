@@ -3,16 +3,20 @@ module process
 import os
 import util
 
-pub fn find_process_by_port(port int) ?&Process {
+const (
+	err_not_found = error('The port is available:')
+)
+
+fn find_process_by_port_from_protocol(port int, protocol string) ?&Process {
 	mut process_list := []&Process{}
 
 	bin_name := 'netstat'
 
 	bin_path := os.find_abs_path_of_executable(bin_name) or {
-		return error("Can not found executable file '$bin_name' in your \$PATH.\n$err")
+		return err
 	}
 	mut ps := os.new_process(bin_path)
-	ps.set_args(['-anv', '-p', 'TCP'])
+	ps.set_args(['-anv', '-p', protocol])
 	ps.set_redirect_stdio()
 	ps.wait()
 
@@ -20,21 +24,17 @@ pub fn find_process_by_port(port int) ?&Process {
 
 	assert ps.code == 0
 
-	lines := output.split_into_lines()
 	table_header_line := 2
+	proto_index := 0
+	addr_index := 3
+	pid_index := 8
 
-	for index, line in lines {
-		if index < table_header_line {
-			continue
-		}
+	columns := util.parse_table(output, table_header_line)
 
-		list := util.extract_columns(line, [0, 3, 8], 11)
-
-		assert list.len == 3
-
-		proto := list[0]
-		addr := list[1]
-		pid := list[2]
+	for column in columns {
+		proto := column[proto_index].str()
+		addr := column[addr_index].str()
+		pid := column[pid_index].str()
 
 		if addr.ends_with('.$port') {
 			mut is_exist := false
@@ -59,8 +59,21 @@ pub fn find_process_by_port(port int) ?&Process {
 	}
 
 	if process_list.len == 0 {
-		return error("can not found process with port '$port'")
+		msg := process.err_not_found.str()
+		return error("$msg $port")
 	}
 
 	return process_list[0]
+}
+
+pub fn find_process_by_port(port int) ?&Process {
+	mut ps := find_process_by_port_from_protocol(port, 'tcp') or {
+		if err.str().starts_with(process.err_not_found.str()) {
+			return find_process_by_port_from_protocol(port, 'udp')
+		}
+
+		return err
+	}
+
+	return ps
 }
