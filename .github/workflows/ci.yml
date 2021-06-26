@@ -61,10 +61,10 @@ jobs:
         with:
           path: kpv
 
-      - name: Testing
-        run: |
-          cd ./kpv
-          make test
+      # - name: Testing
+      #   run: |
+      #     cd ./kpv
+      #     make test
 
       - name: Build kpv
         run: |
