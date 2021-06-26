@@ -4,7 +4,7 @@ import os
 import process
 import strconv
 
-const version = '0.1.1'
+const version = 'v0.1.2'
 
 fn print_help() {
 	print('kpv - Kill the process listening on the specified port
@@ -18,7 +18,7 @@ EXAMPLE:
     kpv 1080 9527                    kill multiple ports
     kpv -f 1080                      kill the process by forcing
 VERSION:
-    v$version
+    $version
 SOURCE CODE:
     https://github.com/axetroy/kpv
 ')
