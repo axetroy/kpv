@@ -1,9 +1,30 @@
 module util
 
 /**
+ * 解析表格
+*/
+pub fn parse_table(table_txt string, table_header_line int) [][]string {
+	lines := table_txt.split_into_lines()
+
+	mut columns := [][]string{}
+
+	for index, line in lines {
+		if index < table_header_line {
+			continue
+		}
+
+		column := parse_single_column(line)
+
+		columns << column
+	}
+
+	return columns
+}
+
+/**
  * 解析输出的表格
 */
-pub fn parse_columns(text string) []string {
+pub fn parse_single_column(text string) []string {
 	arr := text.split_nth('', 0)
 	mut columns := []string{}
 	mut index := 0
@@ -49,8 +70,8 @@ pub fn parse_columns(text string) []string {
 /**
  * 解析表格，然后从表格中提取数据
 */
-pub fn extract_columns(text string, indexs []int, max int) []string {
-	mut columns := parse_columns(text)
+pub fn extract_data_from_column(text string, indexs []int, max int) []string {
+	mut columns := parse_single_column(text)
 
 	mut list := []string{cap: columns.len}
 
