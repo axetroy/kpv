@@ -22,6 +22,9 @@ pub fn parse_columns(text string) []string {
 
 			charLoop: for {
 				if index == arr.len {
+					if char.len != 0 {
+						columns << char
+					}
 					break charLoop
 				}
 
