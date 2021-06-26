@@ -1,5 +1,3 @@
 main
-prune_osx
-prune_win.exe
-prune_linux
+bin/pkv_*
 .DS_Store

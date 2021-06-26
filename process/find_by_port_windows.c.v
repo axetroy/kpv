@@ -1,6 +1,7 @@
 module process
 
 import os
+import util
 
 pub fn find_process_by_port(port int) ?&Process {
 	mut process_list := []&Process{}
