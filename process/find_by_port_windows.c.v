@@ -29,6 +29,9 @@ pub fn find_process_by_port(port int) ?&Process {
 		}
 
 		list := util.extract_columns(line, [0, 1, 4], 5)
+
+		assert list.len == 3
+
 		proto := list[0]
 		addr := list[1]
 		pid := list[2]

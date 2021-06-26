@@ -28,7 +28,15 @@ pub fn find_process_by_port(port int) ?&Process {
 			continue
 		}
 
+		// make sure
+		if !line.starts_with('tcp') && !line.starts_with('udp') {
+			continue
+		}
+
 		list := util.extract_columns(line, [0, 3, 6], 7)
+
+		assert list.len == 3
+
 		proto := list[0]
 		addr := list[1]
 		pid := list[2].split('/')[0]
