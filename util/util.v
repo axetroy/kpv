@@ -66,22 +66,3 @@ pub fn parse_single_column(text string) []string {
 
 	return columns
 }
-
-/**
- * 解析表格，然后从表格中提取数据
-*/
-pub fn extract_data_from_column(text string, indexs []int, max int) []string {
-	mut columns := parse_single_column(text)
-
-	mut list := []string{cap: columns.len}
-
-	for index, column in columns {
-		for i in indexs {
-			if i == index {
-				list << column
-			}
-		}
-	}
-
-	return list
-}
