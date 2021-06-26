@@ -46,6 +46,7 @@ fn filter_flag(arr []string) []string {
 
 fn main() {
 	mut args := os.args[1..]
+	is_force := includes(args, '--force') || includes(args, '-f')
 
 	if args.len == 0 || includes(args, '--help') || includes(args, '-h') {
 		print_help()
@@ -77,7 +78,7 @@ fn main() {
 			continue
 		}
 
-		process.kill(ps.pid, true) or {
+		process.kill(ps.pid, is_force) or {
 			println("kill process '$port' fail: '$err'")
 			continue
 		}
