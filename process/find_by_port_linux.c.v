@@ -18,8 +18,7 @@ pub fn find_process_by_port(port int) ?&Process {
 
 	output := ps.stdout_slurp().trim_space()
 
-	assert ps.pid > 0
-	assert ps.pid != os.getpid()
+	assert ps.code == 0
 
 	lines := output.split_into_lines()
 	table_header_line := 2
