@@ -31,15 +31,15 @@ fn test_parse_table() {
 	cwd := os.getwd()
 
 	mut tester := map{
-		'darwin_full.out': map{
+		'darwin_full.out':         map{
 			'header_size': '2'
 			'json':        'darwin_full.out.json'
-		},
+		}
 		'linux_full_not_root.out': map{
 			'header_size': '3'
 			'json':        'linux_full_not_root.out.json'
-		},
-		'linux_full_root.out': map{
+		}
+		'linux_full_root.out':     map{
 			'header_size': '2'
 			'json':        'linux_full_root.out.json'
 		}
