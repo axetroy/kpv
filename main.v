@@ -56,7 +56,7 @@ fn main() {
 	}
 
 	if args.len == 0 || includes(args, '--version') || includes(args, '-V') {
-		println('v$version')
+		println('$version')
 		exit(1)
 	}
 
