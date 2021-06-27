@@ -1,0 +1,24 @@
+激活Internet连接 (仅服务器)
+Proto Recv-Q Send-Q Local Address           Foreign Address         State       PID/Program name
+tcp        0      0 0.0.0.0:33693           0.0.0.0:*               LISTEN      1461/sunloginclient
+tcp        0      0 0.0.0.0:8000            0.0.0.0:*               LISTEN      2957/docker-proxy
+tcp        0      0 127.0.0.1:32000         0.0.0.0:*               LISTEN      2046/java
+tcp        0      0 0.0.0.0:9000            0.0.0.0:*               LISTEN      2940/docker-proxy
+tcp        0      0 127.0.0.1:16308         0.0.0.0:*               LISTEN      1461/sunloginclient
+tcp        0      0 127.0.0.53:53           0.0.0.0:*               LISTEN      982/systemd-resolve
+tcp        0      0 0.0.0.0:22              0.0.0.0:*               LISTEN      1794/sshd
+tcp        0      0 127.0.0.1:631           0.0.0.0:*               LISTEN      97081/cupsd
+tcp        0      0 127.0.0.1:16090         0.0.0.0:*               LISTEN      1103/oray_rundaemon
+tcp6       0      0 :::22                   :::*                    LISTEN      1794/sshd
+tcp6       0      0 ::1:631                 :::*                    LISTEN      97081/cupsd
+tcp6       0      0 :::9527                 :::*                    LISTEN      96140/./yhz-builder
+tcp6       0      0 :::12345                :::*                    LISTEN      1588/YQEditServer
+udp        0      0 0.0.0.0:53096           0.0.0.0:*                           1005/avahi-daemon:
+udp        0      0 0.0.0.0:5353            0.0.0.0:*                           1005/avahi-daemon:
+udp        0      0 0.0.0.0:5656            0.0.0.0:*                           1461/sunloginclient
+udp        0      0 0.0.0.0:15424           0.0.0.0:*                           1461/sunloginclient
+udp        0      0 127.0.0.53:53           0.0.0.0:*                           982/systemd-resolve
+udp        0      0 0.0.0.0:631             0.0.0.0:*                           97087/cups-browsed
+udp        0      0 0.0.0.0:34700           0.0.0.0:*                           1461/sunloginclient
+udp6       0      0 :::37896                :::*                                1005/avahi-daemon:
+udp6       0      0 :::5353                 :::*                                1005/avahi-daemon:
