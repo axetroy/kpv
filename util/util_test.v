@@ -9,7 +9,7 @@ fn test_parse_single_column() {
 	mut tester := map{
 		'darwin_row_1.out':  map{
 			'col_num':            '12'
-			'may_null_col_index': '-1'
+			'may_null_col_index': '5'
 			'json':               'darwin_row_1.out.json'
 		}
 		'windows_row_1.out': map{
@@ -66,7 +66,7 @@ fn test_parse_table() {
 		'darwin_full.out':         map{
 			'header_start':       'Proto'
 			'col_num':            '12'
-			'may_null_col_index': '-1'
+			'may_null_col_index': '5'
 			'json':               'darwin_full.out.json'
 		}
 		'linux_full_not_root.out': map{

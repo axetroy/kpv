@@ -18,12 +18,11 @@ pub fn find_process_by_port(port int) ?&Process {
 
 	assert ps.code == 0
 
-	table_header_line := 2
 	proto_index := 0
 	addr_index := 3
 	pid_index := 6
 
-	columns := util.parse_table(output, table_header_line)
+	columns := util.parse_table(output, 'Proto', 7, 5)
 
 	for column in columns {
 		proto := column[proto_index].str()

@@ -18,12 +18,11 @@ fn find_process_by_port_from_protocol(port int, protocol string) ?&Process {
 
 	assert ps.code == 0
 
-	table_header_line := 2
 	proto_index := 0
 	addr_index := 3
 	pid_index := 8
 
-	columns := util.parse_table(output, table_header_line)
+	columns := util.parse_table(output, 'Proto', 12, 5)
 
 	for column in columns {
 		proto := column[proto_index].str()
