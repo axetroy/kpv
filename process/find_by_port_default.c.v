@@ -29,7 +29,7 @@ pub fn find_process_by_port(port int) ?&Process {
 		addr := column[addr_index].str()
 		pid := column[pid_index].str().split('/').first()
 
-		if addr.ends_with('.$port') {
+		if addr.ends_with(':$port') {
 			mut is_exist := false
 
 			for d in process_list {
