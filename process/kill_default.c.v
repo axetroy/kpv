@@ -6,7 +6,7 @@ pub fn kill(pid int, force bool) ? {
 	bin_name := 'kill'
 
 	bin_path := os.find_abs_path_of_executable(bin_name) or {
-		return error("Can not found executable file '$bin_name' in your \$PATH.\n$err")
+		return err
 	}
 	mut ps := os.new_process(bin_path)
 	mut argv := []string{}
