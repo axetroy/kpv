@@ -4,7 +4,7 @@ import os
 import process
 import strconv
 
-const version = 'v0.1.4'
+const version = 'v0.1.5'
 
 fn print_help() {
 	print('kpv - Kill the process listening on the specified port
