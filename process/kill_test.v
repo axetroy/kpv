@@ -38,19 +38,15 @@ fn test_kill() {
 
 	time.sleep(time.second * 5)
 
-	resp := http.get('http://localhost:9999') or {
-		panic(err)
-	}
+	resp := http.get('http://localhost:9999') or { panic(err) }
 
-	pid := resp.header.get_custom("x-pid") or {panic("can not get pid from response")}
+	pid := resp.header.get_custom('x-pid') or { panic('can not get pid from response') }
 
 	assert pid.int() > 0
 	assert resp.status_code == 200
 	assert resp.text == 'Hello world'
 
-	kill(pid.int(), false) or {
-		panic(err)
-	}
+	kill(pid.int(), false) or { panic(err) }
 
 	time.sleep(time.second * 2)
 
