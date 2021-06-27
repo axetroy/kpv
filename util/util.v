@@ -3,7 +3,7 @@ module util
 /**
  * 解析表格
 */
-pub fn parse_table(table_txt string, header_first_col string) [][]string {
+pub fn parse_table(table_txt string, header_first_col string, col_num int, may_null_col_index int) [][]string {
 	lines := table_txt.split_into_lines()
 
 	mut columns := [][]string{}
@@ -22,7 +22,7 @@ pub fn parse_table(table_txt string, header_first_col string) [][]string {
 			continue
 		}
 
-		column := parse_single_column(line)
+		column := parse_single_column(line, col_num, may_null_col_index)
 
 		columns << column
 	}
@@ -33,7 +33,7 @@ pub fn parse_table(table_txt string, header_first_col string) [][]string {
 /**
  * 解析输出的表格
 */
-fn parse_single_column(line string) []string {
+fn parse_single_column(line string, col_num int, may_null_col_index int) []string {
 	arr := line.split_nth('', 0)
 	mut columns := []string{}
 	mut index := 0
@@ -69,6 +69,10 @@ fn parse_single_column(line string) []string {
 
 			columns << char
 		}
+	}
+
+	if columns.len < col_num {
+		columns.insert(may_null_col_index, '')
 	}
 
 	return columns
