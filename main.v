@@ -67,7 +67,7 @@ fn main() {
 		exit(1)
 	}
 
-	for arg in args {
+	loop: for arg in args {
 		port := strconv.atoi(arg) or {
 			println("port must be a number but got '$arg'")
 			exit(1)
@@ -76,8 +76,14 @@ fn main() {
 		assert port > 0
 
 		ps := process.find_process_by_port(port) or {
+			if err.str().starts_with(process.err_not_found.str()) {
+				println("The port '$port' is available.")
+
+				continue loop
+			}
+
 			println(err)
-			continue
+			continue loop
 		}
 
 		process.kill(ps.pid, is_force) or {
