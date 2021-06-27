@@ -13,6 +13,10 @@ pub fn parse_table(table_txt string, table_header_line int) [][]string {
 			continue
 		}
 
+		if line.trim_space() == '' {
+			continue
+		}
+
 		column := parse_single_column(line)
 
 		columns << column
@@ -24,8 +28,8 @@ pub fn parse_table(table_txt string, table_header_line int) [][]string {
 /**
  * 解析输出的表格
 */
-pub fn parse_single_column(text string) []string {
-	arr := text.split_nth('', 0)
+pub fn parse_single_column(line string) []string {
+	arr := line.split_nth('', 0)
 	mut columns := []string{}
 	mut index := 0
 
@@ -43,9 +47,6 @@ pub fn parse_single_column(text string) []string {
 
 			charLoop: for {
 				if index == arr.len {
-					if char.len != 0 {
-						columns << char
-					}
 					break charLoop
 				}
 
@@ -57,10 +58,11 @@ pub fn parse_single_column(text string) []string {
 					continue charLoop
 				} else {
 					index++
-					columns << char
 					break charLoop
 				}
 			}
+
+			columns << char
 		}
 	}
 

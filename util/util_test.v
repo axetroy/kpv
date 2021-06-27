@@ -7,10 +7,11 @@ fn test_parse_single_column() {
 	cwd := os.getwd()
 
 	mut tester := map{
-		'darwin.out':  ['tcp4', '0', '0', '127.0.0.1.1080', '127.0.0.1.55808', 'ESTABLISHED',
+		'darwin_row.out':  ['tcp4', '0', '0', '127.0.0.1.1080', '127.0.0.1.55808', 'ESTABLISHED',
 			'407486', '146988', '28025', '0', '0x0102', '0x0000002c']
-		'windows.out': ['TCP', '127.0.0.1:16308', '127.0.0.1:64234', 'ESTABLISHED', '4392']
-		'linux.out':   ['tcp6', '0', '0', ':::9527', ':::*', 'LISTEN', '96140/./yhz-builder']
+		'windows_row.out': ['TCP', '127.0.0.1:16308', '127.0.0.1:64234', 'ESTABLISHED', '4392']
+		'linux_row.out':   ['tcp6', '0', '0', ':::9527', ':::*', 'LISTEN', '96140/./yhz-builder']
+		// 'linux_row_2.out':   ['udp6', '0', '0', ':::5353', ':::*', '', '-']
 	}
 
 	for file, expected in tester {
@@ -42,6 +43,10 @@ fn test_parse_table() {
 		'linux_full_root.out':     map{
 			'header_size': '2'
 			'json':        'linux_full_root.out.json'
+		}
+		'windows_full.out':        map{
+			'header_size': '2'
+			'json':        'windows_full.out.json'
 		}
 	}
 

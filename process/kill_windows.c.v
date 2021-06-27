@@ -5,9 +5,7 @@ import os
 pub fn kill(pid int, force bool) ? {
 	bin_name := 'taskkill'
 
-	bin_path := os.find_abs_path_of_executable(bin_name) or {
-		return err
-	}
+	bin_path := os.find_abs_path_of_executable(bin_name) or { return err }
 	mut ps := os.new_process(bin_path)
 	mut argv := []string{}
 	if force {
