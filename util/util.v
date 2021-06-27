@@ -3,17 +3,22 @@ module util
 /**
  * 解析表格
 */
-pub fn parse_table(table_txt string, table_header_line int) [][]string {
+pub fn parse_table(table_txt string, header_first_col string) [][]string {
 	lines := table_txt.split_into_lines()
 
 	mut columns := [][]string{}
 
-	for index, line in lines {
-		if index < table_header_line {
+	mut header_line_index := 0
+
+	for index, raw in lines {
+		line := raw.trim_space()
+
+		if line.starts_with(header_first_col) {
+			header_line_index = index
 			continue
 		}
 
-		if line.trim_space() == '' {
+		if header_line_index == 0 {
 			continue
 		}
 
@@ -28,7 +33,7 @@ pub fn parse_table(table_txt string, table_header_line int) [][]string {
 /**
  * 解析输出的表格
 */
-pub fn parse_single_column(line string) []string {
+fn parse_single_column(line string) []string {
 	arr := line.split_nth('', 0)
 	mut columns := []string{}
 	mut index := 0

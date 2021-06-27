@@ -33,20 +33,20 @@ fn test_parse_table() {
 
 	mut tester := map{
 		'darwin_full.out':         map{
-			'header_size': '2'
-			'json':        'darwin_full.out.json'
+			'header_start': 'Proto'
+			'json':         'darwin_full.out.json'
 		}
 		'linux_full_not_root.out': map{
-			'header_size': '3'
-			'json':        'linux_full_not_root.out.json'
+			'header_start': 'Proto'
+			'json':         'linux_full_not_root.out.json'
 		}
 		'linux_full_root.out':     map{
-			'header_size': '2'
-			'json':        'linux_full_root.out.json'
+			'header_start': 'Proto'
+			'json':         'linux_full_root.out.json'
 		}
 		'windows_full.out':        map{
-			'header_size': '2'
-			'json':        'windows_full.out.json'
+			'header_start': 'Proto'
+			'json':         'windows_full.out.json'
 		}
 	}
 
@@ -71,9 +71,9 @@ fn test_parse_table() {
 			break
 		}
 
-		header_size := expect['header_size'] or { panic('key not found') }
+		header_size := expect['header_start'] or { panic('key not found') }
 
-		arr := parse_table(txt, header_size.int())
+		arr := parse_table(txt, header_size.str())
 
 		assert expect_columns == arr
 	}
