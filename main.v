@@ -81,10 +81,10 @@ fn main() {
 		}
 
 		process.kill(ps.pid, is_force) or {
-			println("kill process '$port' fail: '$err'")
+			println(err)
 			continue
 		}
 
-		println("kill port '$port' success in process '$ps.pid'")
+		println("The process '$ps.pid' has been killed while it listening on port '$port' .")
 	}
 }
