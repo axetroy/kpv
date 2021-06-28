@@ -8,7 +8,9 @@ fn find_process_by_port_from_protocol(port int, protocol string) ?&Process {
 
 	bin_name := 'netstat'
 
-	bin_path := os.find_abs_path_of_executable(bin_name) or { return err }
+	bin_path := os.find_abs_path_of_executable(bin_name) or {
+		return error(err_command_not_found.str() + ' $bin_name')
+	}
 	mut ps := os.new_process(bin_path)
 	ps.set_args(['-anv', '-p', protocol])
 	ps.set_redirect_stdio()

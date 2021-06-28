@@ -8,7 +8,9 @@ pub fn find_process_by_port(port int) ?&Process {
 
 	bin_name := 'netstat'
 
-	bin_path := os.find_abs_path_of_executable(bin_name) or { return err }
+	bin_path := os.find_abs_path_of_executable(bin_name) or {
+		return error(err_command_not_found.str() + ' $bin_name')
+	}
 	mut ps := os.new_process(bin_path)
 	ps.set_args(['-tunlp'])
 	ps.set_redirect_stdio()
