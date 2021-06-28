@@ -25,6 +25,9 @@ fn start_server() ?int {
 	mut ps := os.new_process(python_path)
 	py_file_path := os.join_path(cwd, 'process', 'test_data', 'server.py')
 	ps.set_args([py_file_path])
+	ps.set_environment(map{
+		'PORT': '9999'
+	})
 	ps.wait()
 
 	if ps.code != 0 {

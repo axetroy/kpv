@@ -10,6 +10,8 @@ pub fn kill(pid int, force bool) ? {
 	mut argv := []string{}
 	if force {
 		argv << '-9'
+	} else {
+		argv << '-15'
 	}
 	argv << '$pid'
 	ps.set_args(argv)

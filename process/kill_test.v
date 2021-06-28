@@ -24,6 +24,9 @@ fn start_server() ?int {
 	mut ps := os.new_process(python_path)
 	py_file_path := os.join_path(cwd, 'process', 'test_data', 'server.py')
 	ps.set_args([py_file_path])
+	ps.set_environment(map{
+		'PORT': '8888'
+	})
 	ps.wait()
 
 	if ps.code != 0 {
@@ -38,7 +41,10 @@ fn test_kill() {
 
 	time.sleep(time.second * 5)
 
-	resp := http.get('http://localhost:9999') or { panic(err) }
+	resp := http.get('http://127.0.0.1:8888') or {
+		println('should not dial fail')
+		panic(err)
+	}
 
 	pid := resp.header.get_custom('x-pid') or { panic('can not get pid from response') }
 
@@ -51,7 +57,7 @@ fn test_kill() {
 	time.sleep(time.second * 2)
 
 	// should throw error
-	resp2 := http.get('http://localhost:9999') or {
+	resp2 := http.get('http://127.0.0.1:8888') or {
 		assert true
 		return
 	}
