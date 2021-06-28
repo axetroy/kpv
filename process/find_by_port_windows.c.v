@@ -6,7 +6,7 @@ import util
 pub fn find_process_by_port(port int) ?&Process {
 	mut process_list := []&Process{}
 
-	bin_name := 'netstat'
+	bin_name := 'netstat.exe'
 
 	bin_path := os.find_abs_path_of_executable(bin_name) or {
 		return error(err_command_not_found.str() + ' $bin_name')

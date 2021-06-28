@@ -3,7 +3,7 @@ module process
 import os
 
 pub fn kill(pid int, force bool) ? {
-	bin_name := 'taskkill'
+	bin_name := 'taskkill.exe'
 
 	bin_path := os.find_abs_path_of_executable(bin_name) or {
 		return error(err_command_not_found.str() + ' $bin_name')
