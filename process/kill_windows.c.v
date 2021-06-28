@@ -3,11 +3,8 @@ module process
 import os
 
 pub fn kill(pid int, force bool) ? {
-	bin_name := 'taskkill.exe'
+	bin_path := 'taskkill.exe'
 
-	bin_path := os.find_abs_path_of_executable(bin_name) or {
-		return error(err_command_not_found.str() + ' $bin_name')
-	}
 	mut ps := os.new_process(bin_path)
 	mut argv := []string{}
 	if force {
