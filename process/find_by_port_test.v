@@ -67,7 +67,7 @@ fn test_find_process_by_port() {
 		// should to into this block
 		assert true
 
-		// time.sleep(time.second * 10)
+		// time.sleep(time.second * 5)
 
 		// find_process_by_port(9999) or {
 		// 	assert true

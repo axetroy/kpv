@@ -4,7 +4,7 @@ default: test
 	@make linux
 
 test:
-	@v test ./
+	@v -stats test .
 
 format:
 	@v fmt -w *.v **/*.v
