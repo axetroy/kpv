@@ -10,7 +10,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           repository: vlang/v
-          ref: 02f4f635cff081de8539fb9542515650ad97f80a
+          ref: 2bcc733ff64f887479de80f27818f93540c603e7
 
       - name: Build V
         run: |
@@ -55,7 +55,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           repository: vlang/v
-          ref: 02f4f635cff081de8539fb9542515650ad97f80a
+          ref: 2bcc733ff64f887479de80f27818f93540c603e7
 
       - name: Build V
         run: |
@@ -71,10 +71,10 @@ jobs:
           python-version: "3.x" # Version range or exact version of a Python version to use, using SemVer's version range syntax
           architecture: "x64" # optional x64 or x86. Defaults to x64 if not specified
 
-      # - name: Testing
-      #   run: |
-      #     cd ./kpv
-      #     make test
+      - name: Testing
+        run: |
+          cd ./kpv
+          make test
 
       - name: Build kpv
         run: |
@@ -95,7 +95,7 @@ jobs:
         uses: actions/checkout@v2
         with:
           repository: vlang/v
-          ref: 02f4f635cff081de8539fb9542515650ad97f80a
+          ref: 2bcc733ff64f887479de80f27818f93540c603e7
 
       - name: Build V
         run: |
