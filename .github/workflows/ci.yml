@@ -73,6 +73,7 @@ jobs:
 
       - name: Testing
         run: |
+          $env:path += ";$(get-location)"
           cd ./kpv
           make test
 
