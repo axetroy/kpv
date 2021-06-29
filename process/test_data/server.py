@@ -27,5 +27,5 @@ def exit_handler():
 
 atexit.register(exit_handler)
 
-httpd = socketserver.TCPServer(('127.0.0.1', port), Handler)
+httpd = socketserver.TCPServer(('0.0.0.0', port), Handler)
 httpd.serve_forever()
