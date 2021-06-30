@@ -5,7 +5,11 @@ from os import getpid, environ
 import atexit
 import sys
 
-port = int(sys.argv[1])
+print(sys.argv)
+
+args = sys.argv[1:]
+
+port = int(args[0])
 
 class Handler(http.server.SimpleHTTPRequestHandler):
     def do_GET(self):
