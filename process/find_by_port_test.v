@@ -6,6 +6,10 @@ import strconv
 import net.http
 
 fn get_executable_path(bin_name string, fallback_bin_name string) ?string {
+	$if windows {
+		return bin_name
+	}
+
 	bin_path := os.find_abs_path_of_executable(bin_name) or {
 		if fallback_bin_name.len > 0 {
 			return get_executable_path(fallback_bin_name, '')
