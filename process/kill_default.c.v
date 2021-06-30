@@ -50,9 +50,9 @@ pub fn kill(pid int, force bool) ? {
 	mut ps := os.new_process(bin_path)
 	mut argv := []string{}
 	if force == true {
-		argv << '-$sig_kill'
+		argv << '-$process.sig_kill'
 	} else {
-		argv << '-$sig_term'
+		argv << '-$process.sig_term'
 	}
 	argv << '$pid'
 	ps.set_args(argv)
