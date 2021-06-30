@@ -32,6 +32,10 @@ fn start_server(port string) ?int {
 	ps.set_args([py_file_path, port])
 	ps.wait()
 
+	if ps.code != 9 && ps.code != 15 {
+		return error('process exit with code $ps.code')
+	}
+
 	return ps.pid
 }
 
