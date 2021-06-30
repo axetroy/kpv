@@ -57,7 +57,7 @@ fn test_kill() {
 	assert resp.status_code == 200
 	assert resp.text == 'Hello world'
 
-	kill(pid.int(), false) or { panic(err) }
+	kill(pid.int(), true) or { panic(err) }
 
 	time.sleep(time.second * 2)
 

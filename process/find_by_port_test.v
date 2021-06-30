@@ -63,7 +63,7 @@ fn test_find_process_by_port() {
 	assert resp.text == 'Hello world'
 	assert ps.pid == pid
 
-	kill(pid, false) or { panic(err) }
+	kill(pid, true) or { panic(err) }
 
 	time.sleep(time.second * 2)
 
