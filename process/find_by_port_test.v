@@ -11,7 +11,9 @@ fn get_executable_path(bin_name string, fallback_bin_name string) ?string {
 			return get_executable_path(fallback_bin_name, '')
 		}
 
-		return err
+		msg := err.str()
+
+		return error("$msg\nfail find executable $bin_name")
 	}
 
 	return bin_path
