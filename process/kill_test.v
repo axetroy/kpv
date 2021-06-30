@@ -37,7 +37,9 @@ fn start_server(port string) ?int {
 }
 
 fn test_kill() {
-	go start_server('8888')
+	go fn () {
+		start_server('8888') or { panic(err) }
+	}()
 
 	time.sleep(time.second * 5)
 
