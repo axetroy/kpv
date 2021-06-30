@@ -40,11 +40,13 @@ fn start_server(port string) ?int {
 }
 
 fn test_kill() {
-	go start_server('8888')
+	port := 8888
+
+	go start_server('$')
 
 	time.sleep(time.second * 5)
 
-	resp := http.get('http://127.0.0.1:8888') or {
+	resp := http.get('http://127.0.0.1:$port') or {
 		println('should not dial fail')
 		panic(err)
 	}
@@ -60,7 +62,7 @@ fn test_kill() {
 	time.sleep(time.second * 2)
 
 	// should throw error
-	resp2 := http.get('http://127.0.0.1:8888') or {
+	resp2 := http.get('http://127.0.0.1:$port') or {
 		assert true
 		return
 	}

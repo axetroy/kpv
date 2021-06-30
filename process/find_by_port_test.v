@@ -41,11 +41,13 @@ fn start_server(port string) ?int {
 }
 
 fn test_find_process_by_port() {
-	go start_server('9999')
+	port := 9999
+
+	go start_server('$port')
 
 	time.sleep(time.second * 5)
 
-	resp := http.get('http://localhost:9999') or {
+	resp := http.get('http://localhost:$port') or {
 		println('should not dial tcp error')
 		panic(err)
 	}
@@ -54,7 +56,7 @@ fn test_find_process_by_port() {
 
 	pid := strconv.atoi(pid_str) or { panic(err) }
 
-	ps := find_process_by_port(9999) or { panic(err) }
+	ps := find_process_by_port(port) or { panic(err) }
 
 	assert pid > 0
 	assert resp.status_code == 200
@@ -66,13 +68,13 @@ fn test_find_process_by_port() {
 	time.sleep(time.second * 2)
 
 	// should throw error
-	resp2 := http.get('http://localhost:9999') or {
+	resp2 := http.get('http://localhost:$port') or {
 		// should to into this block
 		assert true
 
 		// time.sleep(time.second * 5)
 
-		// find_process_by_port(9999) or {
+		// find_process_by_port(port) or {
 		// 	assert true
 		// 	return
 		// }
