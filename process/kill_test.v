@@ -42,7 +42,7 @@ fn start_server(port string) ?int {
 fn test_kill() {
 	port := 8888
 
-	go start_server('$')
+	go start_server('$port')
 
 	time.sleep(time.second * 5)
 
