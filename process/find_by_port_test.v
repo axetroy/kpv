@@ -41,9 +41,7 @@ fn start_server(port string) ?int {
 }
 
 fn test_find_process_by_port() {
-	go fn () {
-		start_server('9999') or { panic(err) }
-	}()
+	go start_server('9999')
 
 	time.sleep(time.second * 5)
 
