@@ -5,13 +5,7 @@ from os import getpid, environ
 import atexit
 import sys
 
-port = 9999
-
-try:
-    port = int(environ["PORT"])
-except KeyError:
-    print("Please set the environment variable PORT")
-    sys.exit(1)
+port = int(sys.argv[1])
 
 class Handler(http.server.SimpleHTTPRequestHandler):
     def do_GET(self):
