@@ -16,7 +16,7 @@ fn get_executable_path(bin_name string, fallback_bin_name string) ?string {
 	return bin_path
 }
 
-fn start_server() ?int {
+fn start_server(port string) ?int {
 	cwd := os.getwd()
 
 	python_path := get_executable_path('python3', 'python') or { return err }
@@ -25,7 +25,7 @@ fn start_server() ?int {
 	py_file_path := os.join_path(cwd, 'process', 'test_data', 'server.py')
 	ps.set_args([py_file_path])
 	ps.set_environment(map{
-		'PORT': '8888'
+		'PORT': port
 	})
 	ps.wait()
 
@@ -37,7 +37,7 @@ fn start_server() ?int {
 }
 
 fn test_kill() {
-	go start_server()
+	go start_server('8888')
 
 	time.sleep(time.second * 5)
 
