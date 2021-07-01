@@ -13,6 +13,7 @@ pub fn kill(pid int, force bool) ? {
 	argv << '/T'
 	argv << '/PID'
 	argv << '$pid'
+	println(argv)
 	ps.set_args(argv)
 	ps.wait()
 
