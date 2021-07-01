@@ -14,15 +14,7 @@ pub fn kill(pid int, force bool) ? {
 	argv << '/PID'
 	argv << '$pid'
 	ps.set_args(argv)
-	ps.set_redirect_stdio()
 	ps.wait()
-
-	stdout := ps.stdout_slurp().trim_space()
-	stderr := ps.stderr_slurp().trim_space()
-
-	if ps.code != 0 {
-		return error('$stdout\n$stderr')
-	}
 
 	return
 }
