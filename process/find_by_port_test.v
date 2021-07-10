@@ -45,7 +45,7 @@ fn test_find_process_by_port() {
 
 	go start_server('$port')
 
-	time.sleep(time.second * 5)
+	time.sleep(time.second * 10)
 
 	resp := http.get('http://localhost:$port') or {
 		println('should not dial tcp error')
