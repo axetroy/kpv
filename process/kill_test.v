@@ -40,7 +40,7 @@ fn test_kill() {
 
 	go start_server('$port')
 
-	time.sleep(time.second * 5)
+	time.sleep(time.second * 10)
 
 	resp := http.get('http://127.0.0.1:$port') or {
 		println('should not dial fail')
