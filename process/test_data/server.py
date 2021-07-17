@@ -27,3 +27,12 @@ atexit.register(exit_handler)
 
 httpd = socketserver.TCPServer(('0.0.0.0', port), Handler)
 httpd.serve_forever()
+
+def receive_signal(signum, stack):
+    os.exit(0)
+
+signal.signal(signal.SIGINT, receive_signal)
+
+while True:
+    print('Waiting...')
+    time.sleep(3)

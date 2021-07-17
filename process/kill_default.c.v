@@ -56,6 +56,7 @@ pub fn kill(pid int, force bool) ? {
 	}
 	argv << '$pid'
 	ps.set_args(argv)
+	ps.set_redirect_stdio()
 	ps.wait()
 
 	if ps.code != 0 {
