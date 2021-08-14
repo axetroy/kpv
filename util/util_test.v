@@ -6,23 +6,23 @@ import json
 fn test_parse_single_column() {
 	cwd := os.getwd()
 
-	mut tester := map{
-		'darwin_row_1.out':  map{
+	mut tester := {
+		'darwin_row_1.out':  {
 			'col_num':            '12'
 			'may_null_col_index': '5'
 			'json':               'darwin_row_1.out.json'
 		}
-		'windows_row_1.out': map{
+		'windows_row_1.out': {
 			'col_num':            '5'
 			'may_null_col_index': '3'
 			'json':               'windows_row_1.out.json'
 		}
-		'linux_row_1.out':   map{
+		'linux_row_1.out':   {
 			'col_num':            '7'
 			'may_null_col_index': '5'
 			'json':               'linux_row_1.out.json'
 		}
-		'linux_row_2.out':   map{
+		'linux_row_2.out':   {
 			'col_num':            '7'
 			'may_null_col_index': '5'
 			'json':               'linux_row_2.out.json'
@@ -62,26 +62,26 @@ fn test_parse_single_column() {
 fn test_parse_table() {
 	cwd := os.getwd()
 
-	mut tester := map{
-		'darwin_full.out':         map{
+	mut tester := {
+		'darwin_full.out':         {
 			'header_start':       'Proto'
 			'col_num':            '12'
 			'may_null_col_index': '5'
 			'json':               'darwin_full.out.json'
 		}
-		'linux_full_not_root.out': map{
+		'linux_full_not_root.out': {
 			'header_start':       'Proto'
 			'col_num':            '7'
 			'may_null_col_index': '5'
 			'json':               'linux_full_not_root.out.json'
 		}
-		'linux_full_root.out':     map{
+		'linux_full_root.out':     {
 			'header_start':       'Proto'
 			'col_num':            '7'
 			'may_null_col_index': '5'
 			'json':               'linux_full_root.out.json'
 		}
-		'windows_full.out':        map{
+		'windows_full.out':        {
 			'header_start':       'Proto'
 			'col_num':            '5'
 			'may_null_col_index': '3'
