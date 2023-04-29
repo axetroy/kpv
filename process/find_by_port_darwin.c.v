@@ -9,7 +9,7 @@ fn find_process_by_port_from_protocol(port int, protocol string) ?&Process {
 	bin_name := 'netstat'
 
 	bin_path := os.find_abs_path_of_executable(bin_name) or {
-		return error(err_command_not_found.str() + ' $bin_name')
+		return error(err_command_not_found.str() + ' ${bin_name}')
 	}
 	mut ps := os.new_process(bin_path)
 	ps.set_args(['-anv', '-p', protocol])
@@ -31,7 +31,7 @@ fn find_process_by_port_from_protocol(port int, protocol string) ?&Process {
 		addr := column[addr_index].str()
 		pid := column[pid_index].str()
 
-		if addr.ends_with('.$port') {
+		if addr.ends_with('.${port}') {
 			mut is_exist := false
 
 			for d in process_list {
@@ -55,7 +55,7 @@ fn find_process_by_port_from_protocol(port int, protocol string) ?&Process {
 
 	if process_list.len == 0 {
 		msg := err_not_found.str()
-		return error('$msg $port')
+		return error('${msg} ${port}')
 	}
 
 	return process_list[0]

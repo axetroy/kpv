@@ -2,7 +2,6 @@ module process
 
 import os
 import time
-import strconv
 import net.http
 
 fn get_executable_path(bin_name string, fallback_bin_name string) ?string {
@@ -17,7 +16,7 @@ fn get_executable_path(bin_name string, fallback_bin_name string) ?string {
 
 		msg := err.str()
 
-		return error('$msg\nfail find executable $bin_name')
+		return error('${msg}\nfail find executable ${bin_name}')
 	}
 
 	return bin_path
@@ -31,10 +30,10 @@ fn start_server(port string) ?int {
 	mut ps := os.new_process(python_path)
 	py_file_path := os.join_path(cwd, 'process', 'test_data', 'server.py')
 	ps.set_args([py_file_path, port])
-	ps.wait()
+	ps.run()
 
 	if ps.code != 9 && ps.code != 15 {
-		return error('process exit with code $ps.code')
+		return error('process exit with code ${ps.code}')
 	}
 
 	return ps.pid
@@ -43,24 +42,25 @@ fn start_server(port string) ?int {
 fn test_find_process_by_port() {
 	port := 9999
 
-	go start_server('$port')
+	routine := spawn start_server('${port}')
 
-	time.sleep(time.second * 10)
-
-	resp := http.get('http://localhost:$port') or {
-		println('should not dial tcp error')
+	pid := routine.wait() or {
+		println('panic on routine wait')
 		panic(err)
 	}
 
-	pid_str := resp.header.get_custom('x-pid') or { panic('can not get pid from response') }
+	time.sleep(time.second * 10)
 
-	pid := strconv.atoi(pid_str) or { panic(err) }
+	resp := http.get('http://localhost:${port}') or {
+		println('should not dial tcp error')
+		panic(err)
+	}
 
 	ps := find_process_by_port(port) or { panic(err) }
 
 	assert pid > 0
 	assert resp.status_code == 200
-	assert resp.text == 'Hello world'
+	assert resp.body == 'Hello world'
 	assert ps.pid == pid
 
 	kill(pid, true) or { panic(err) }
@@ -68,7 +68,7 @@ fn test_find_process_by_port() {
 	time.sleep(time.second * 2)
 
 	// should throw error
-	resp2 := http.get('http://localhost:$port') or {
+	resp2 := http.get('http://localhost:${port}') or {
 		// should to into this block
 		assert true
 

@@ -28,7 +28,7 @@ pub fn find_process_by_port(port int) ?&Process {
 		addr := column[addr_index].str()
 		pid := column[pid_index].str()
 
-		if addr.ends_with(':$port') {
+		if addr.ends_with(':${port}') {
 			mut is_exist := false
 
 			for d in process_list {
@@ -52,7 +52,7 @@ pub fn find_process_by_port(port int) ?&Process {
 
 	if process_list.len == 0 {
 		msg := err_not_found.str()
-		return error('$msg $port')
+		return error('${msg} ${port}')
 	}
 
 	return process_list[0]

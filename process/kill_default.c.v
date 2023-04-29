@@ -45,22 +45,22 @@ pub fn kill(pid int, force bool) ? {
 	bin_name := 'kill'
 
 	bin_path := os.find_abs_path_of_executable(bin_name) or {
-		return error(err_command_not_found.str() + ' $bin_name')
+		return error(err_command_not_found.str() + ' ${bin_name}')
 	}
 	mut ps := os.new_process(bin_path)
 	mut argv := []string{}
 	if force == true {
-		argv << '-$process.sig_kill'
+		argv << '-${process.sig_kill}'
 	} else {
-		argv << '-$process.sig_term'
+		argv << '-${process.sig_term}'
 	}
-	argv << '$pid'
+	argv << '${pid}'
 	ps.set_args(argv)
 	ps.set_redirect_stdio()
 	ps.wait()
 
 	if ps.code != 0 {
-		return error('kill process $pid fail.')
+		return error('kill process ${pid} fail.')
 	}
 
 	return

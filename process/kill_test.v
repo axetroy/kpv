@@ -16,7 +16,7 @@ fn get_executable_path(bin_name string, fallback_bin_name string) ?string {
 
 		msg := err.str()
 
-		return error('$msg\nfail find executable $bin_name')
+		return error('${msg}\nfail find executable ${bin_name}')
 	}
 
 	return bin_path
@@ -38,11 +38,11 @@ fn start_server(port string) ?int {
 fn test_kill() {
 	port := 8888
 
-	go start_server('$port')
+	spawn start_server('${port}')
 
 	time.sleep(time.second * 10)
 
-	resp := http.get('http://127.0.0.1:$port') or {
+	resp := http.get('http://127.0.0.1:${port}') or {
 		println('should not dial fail')
 		panic(err)
 	}
@@ -51,14 +51,14 @@ fn test_kill() {
 
 	assert pid.int() > 0
 	assert resp.status_code == 200
-	assert resp.text == 'Hello world'
+	assert resp.body == 'Hello world'
 
 	kill(pid.int(), true) or { panic(err) }
 
 	time.sleep(time.second * 2)
 
 	// should throw error
-	resp2 := http.get('http://127.0.0.1:$port') or {
+	resp2 := http.get('http://127.0.0.1:${port}') or {
 		assert true
 		return
 	}

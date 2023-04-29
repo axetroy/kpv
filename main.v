@@ -18,13 +18,13 @@ EXAMPLE:
     kpv 1080 9527                    kill multiple ports
     kpv -f 1080                      kill the process by forcing
 VERSION:
-    $version
+    ${version}
 SOURCE CODE:
     https://github.com/axetroy/kpv
 ')
 }
 
-fn includes<T>(arr []T, target T) bool {
+fn includes[T](arr []T, target T) bool {
 	for el in arr {
 		if el == target {
 			return true
@@ -56,7 +56,7 @@ fn main() {
 	}
 
 	if args.len == 0 || includes(args, '--version') || includes(args, '-V') {
-		println('$version')
+		println('${version}')
 		exit(1)
 	}
 
@@ -69,7 +69,7 @@ fn main() {
 
 	loop: for arg in args {
 		port := strconv.atoi(arg) or {
-			println("port must be a number but got '$arg'")
+			println("port must be a number but got '${arg}'")
 			exit(1)
 		}
 
@@ -77,7 +77,7 @@ fn main() {
 
 		ps := process.find_process_by_port(port) or {
 			if err.str().starts_with(process.err_not_found.str()) {
-				println("The port '$port' is available.")
+				println("The port '${port}' is available.")
 
 				continue loop
 			}
@@ -91,6 +91,6 @@ fn main() {
 			continue
 		}
 
-		println("The process '$ps.pid' has been killed while it listening on port '$port' .")
+		println("The process '${ps.pid}' has been killed while it listening on port '${port}' .")
 	}
 }

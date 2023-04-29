@@ -48,7 +48,7 @@ fn parse_single_column(line string, col_num int, may_null_col_index int) []strin
 		if current == '' {
 			index++
 		} else {
-			mut char := ''
+			mut single_char := ''
 
 			charLoop: for {
 				if index == arr.len {
@@ -58,7 +58,7 @@ fn parse_single_column(line string, col_num int, may_null_col_index int) []strin
 				mut next := arr[index].trim_space()
 
 				if next != '' {
-					char += next
+					single_char += next
 					index++
 					continue charLoop
 				} else {
@@ -67,7 +67,7 @@ fn parse_single_column(line string, col_num int, may_null_col_index int) []strin
 				}
 			}
 
-			columns << char
+			columns << single_char
 		}
 	}
 
